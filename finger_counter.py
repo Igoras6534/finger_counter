@@ -12,7 +12,7 @@ wCam,hCam=640,480
 cam.set(3,wCam)
 cam.set(4,hCam)
 
-folder_path="fingers"
+folder_path="finger_counter/fingers"
 myList=os.listdir(folder_path)
 overlayList=[]
 
@@ -44,7 +44,6 @@ while True:
                 fingers.append(0)
 
         total_fingers=fingers.count(1)
-        print(fingers)
         h,w,c=overlayList[0].shape
         frame[0:h,0:w] = overlayList[total_fingers]
 
