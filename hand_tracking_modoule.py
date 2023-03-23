@@ -15,17 +15,18 @@ class handDetector():
         self.hands=self.mpHands.Hands(self.mode,self.maxHands,self.model_complexity, 
                                       self.detectionCon,self.trackCon)
         self.mpDraw=mp.solutions.drawing_utils
+        self.drawing_spec=self.mpDraw.DrawingSpec(color=(0,255,0))
         print("Initialized")
 
 
     def findHands(self,frame,draw=True):       
-        frameRGB=cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        frameRGB=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
         self.results=self.hands.process(frameRGB)
         if self.results.multi_hand_landmarks:
             for hand_LMS in self.results.multi_hand_landmarks:
                 if draw:
                     self.mpDraw.draw_landmarks(frame,hand_LMS,
-                                               self.mpHands.HAND_CONNECTIONS)
+                                               self.mpHands.HAND_CONNECTIONS, connection_drawing_spec=self.drawing_spec)
         return frame
     def findPosition(self, frame, handNo=0, draw=True):
         lmList=[]
